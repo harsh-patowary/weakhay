@@ -1,4 +1,5 @@
 import socket
+# from socket import socket
 import select
 import sys
 
@@ -11,7 +12,8 @@ Port = int(sys.argv[2])
 server.connect((IP_address, Port))
 
 while True:
-    sockets_list = [sys.stdin, server]
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sockets_list = [socket.socket(), server]
     read_sockets,write_socket, error_socket = select.select(sockets_list, [], [])
     for socks in read_sockets:
         if socks == server:
